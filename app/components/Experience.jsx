@@ -25,7 +25,7 @@ export default function Experience() {
       <ambientLight intensity={ 1.5 } />
       <group ref={ groupRef }>
         <PivotControls
-          anchor={ [0, 0, 0] } 
+          anchor={ [0, 0, 0] }
           depthTest={ false }
           lineWidth={ 4 }
           axisColors={ ['#9381ff', '#ff4d6d', '#7ae582'] }

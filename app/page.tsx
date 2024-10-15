@@ -1,14 +1,12 @@
 'use client'
 
 import { Canvas } from '@react-three/fiber'
+import Experience from './components/Experience'
 
 export default function Home() {
   return (
     <Canvas>
-      <mesh>
-        <torusKnotGeometry />
-        <meshNormalMaterial />
-      </mesh>
+      <Experience />
     </Canvas>
   );
 }

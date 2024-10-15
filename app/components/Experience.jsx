@@ -8,6 +8,12 @@ export default function Experience() {
   const groupRef = useRef()
 
   useFrame((state, delta) => {
+
+    const angle = state.clock.elapsedTime * .5
+    state.camera.position.x = Math.sin(angle) *3
+    state.camera.position.z = Math.cos(angle) *3
+    state.camera.lookAt(0, 0, 0)
+
     cubeRef.current.rotation.y += delta
     groupRef.current.rotation.y += delta
   })

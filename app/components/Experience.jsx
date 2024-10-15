@@ -5,9 +5,13 @@ export default function Experience() {
         <sphereGeometry />
         <meshBasicMaterial color="orange" />
       </mesh>
-      <mesh rotation-y={Math.PI * .25} position-x={2}>
+      <mesh rotation-y={Math.PI * .25} position-x={2} scale={1.5}>
         <boxGeometry scale={1.5} />
-        <meshBasicMaterial color="mediumpurple" wireframe />
+        <meshBasicMaterial color="mediumpurple" />
+      </mesh>
+      <mesh position-y={-1} rotation-x={ -Math.PI * .5} scale={10}>
+        <planeGeometry />
+        <meshBasicMaterial color="greenyellow" />
       </mesh>
     </>
   );

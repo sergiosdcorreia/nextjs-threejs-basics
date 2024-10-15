@@ -1,6 +1,6 @@
 import { useFrame } from "@react-three/fiber"
 import { useRef } from "react"
-import CustomObject from './CustomObject'
+import { TransformControls, OrbitControls  } from '@react-three/drei'
 
 export default function Experience() {
 
@@ -9,17 +9,18 @@ export default function Experience() {
 
   useFrame((state, delta) => {
 
-    const angle = state.clock.elapsedTime * .5
-    state.camera.position.x = Math.sin(angle) *3
-    state.camera.position.z = Math.cos(angle) *3
-    state.camera.lookAt(0, 0, 0)
+    // const angle = state.clock.elapsedTime * .5
+    // state.camera.position.x = Math.sin(angle) *3
+    // state.camera.position.z = Math.cos(angle) *3
+    // state.camera.lookAt(0, 0, 0)
 
-    cubeRef.current.rotation.y += delta
-    groupRef.current.rotation.y += delta
+    // cubeRef.current.rotation.y += delta
+    // groupRef.current.rotation.y += delta
   })
 
   return (
     <>
+      <OrbitControls makeDefault />
       <directionalLight position={ [ 1, 2, 3 ]} intensity={ 4.5 } />
       <ambientLight intensity={ 1.5 } />
       <group ref={ groupRef }>
@@ -31,12 +32,12 @@ export default function Experience() {
           <boxGeometry scale={1.5} />
           <meshStandardMaterial color="mediumpurple" />
         </mesh>
+        <TransformControls object={ cubeRef } mode="translate" />
       </group>
       <mesh position-y={-1} rotation-x={ -Math.PI * .5} scale={10}>
         <planeGeometry />
         <meshStandardMaterial color="greenyellow" />
       </mesh>
-      <CustomObject />
     </>
   );
 }

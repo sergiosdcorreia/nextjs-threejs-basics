@@ -1,6 +1,6 @@
 import { useFrame } from "@react-three/fiber"
 import { useRef } from "react"
-import {PivotControls, TransformControls, OrbitControls  } from '@react-three/drei'
+import { Html, PivotControls, TransformControls, OrbitControls  } from '@react-three/drei'
 
 export default function Experience() {
 
@@ -35,6 +35,12 @@ export default function Experience() {
           <mesh position-x={ -2 }>
             <sphereGeometry />
             <meshStandardMaterial color="orange" />
+            <Html
+              position={ [1, 1, 0] }
+              wrapperClass="label"
+            >
+              Sergio Correia
+            </Html>
           </mesh>
         </PivotControls>
         <mesh ref={ cubeRef } rotation-y={ Math.PI * .25 } position-x={2} scale={1.5}>

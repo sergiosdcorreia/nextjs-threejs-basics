@@ -1,5 +1,6 @@
 import { useFrame } from "@react-three/fiber"
 import { useRef } from "react"
+import CustomObject from './CustomObject'
 
 export default function Experience() {
 
@@ -29,6 +30,7 @@ export default function Experience() {
         <planeGeometry />
         <meshStandardMaterial color="greenyellow" />
       </mesh>
+      <CustomObject />
     </>
   );
 }

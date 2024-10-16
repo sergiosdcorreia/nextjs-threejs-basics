@@ -1,6 +1,7 @@
 import { useFrame } from "@react-three/fiber"
 import { useRef } from "react"
 import {
+  Sky,
   ContactShadows,
   MeshReflectorMaterial,
   Float,
@@ -21,6 +22,10 @@ export default function Experience() {
     color: '#1d8f75',
     opacity: { value: 0.4, min: 0, max: 1 },
     blur: { value: 2.8, min: 0, max: 10 }
+  })
+
+  const { sunPosition } = useControls('sky', {
+    sunPosition: { value: [ 1, 2, 3 ] }
   })
 
   // useHelper(directionalLightRef, THREE.DirectionalLightHelper, 1)
@@ -54,7 +59,7 @@ export default function Experience() {
       <OrbitControls makeDefault />
       <directionalLight
         ref={ directionalLightRef }
-        position={ [ 1, 2, 3 ] }
+        position={ sunPosition }
         intensity={ 4.5 }
         castShadow
         shadow-mapSize={ [1024, 1024] }
@@ -66,6 +71,7 @@ export default function Experience() {
         shadow-camera-left={ -3 }
       />
       <ambientLight intensity={ 1.5 } />
+      <Sky sunPosition= { sunPosition } />
       <group ref={ groupRef }>
         {/*<PivotControls
           anchor={ [0, 0, 0] }

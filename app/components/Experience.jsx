@@ -1,7 +1,7 @@
 import { useFrame } from "@react-three/fiber"
 import { useRef } from "react"
 import {
-  Sky,
+  Environment,
   ContactShadows,
   MeshReflectorMaterial,
   Float,
@@ -54,6 +54,10 @@ export default function Experience() {
         opacity={ opacity }
         blur={ blur }
       />
+      <Environment
+        background
+        files={ '/images/victoria_sunset_1k.hdr' }
+      />
       <color args={ ['ivory'] } attach="background" />
       <Perf position="top-left" />
       <OrbitControls makeDefault />
@@ -71,7 +75,7 @@ export default function Experience() {
         shadow-camera-left={ -3 }
       />
       <ambientLight intensity={ 1.5 } />
-      <Sky sunPosition= { sunPosition } />
+      {/*<Sky sunPosition= { sunPosition } />*/}
       <group ref={ groupRef }>
         {/*<PivotControls
           anchor={ [0, 0, 0] }

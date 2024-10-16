@@ -5,6 +5,7 @@ import { Html, PivotControls, TransformControls, OrbitControls  } from '@react-t
 export default function Experience() {
 
   const cubeRef = useRef()
+  const sphereRef = useRef()
   const groupRef = useRef()
 
   useFrame(() => {
@@ -32,12 +33,15 @@ export default function Experience() {
           scale={ 100 }
           fixed={ true }
         >
-          <mesh position-x={ -2 }>
+          <mesh ref={ sphereRef } position-x={ -2 }>
             <sphereGeometry />
             <meshStandardMaterial color="orange" />
             <Html
-              position={ [1, 1, 0] }
+              position={ [1.5, 1, 0] }
               wrapperClass="label"
+              center
+              distanceFactor={ 6 }
+              occlude={ [ sphereRef, cubeRef ] }
             >
               Sergio Correia
             </Html>

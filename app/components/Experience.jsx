@@ -1,19 +1,14 @@
 import { useFrame } from "@react-three/fiber"
 import { useRef } from "react"
 import {
-  BakeShadows,
-  useHelper,
+  ContactShadows,
   MeshReflectorMaterial,
   Float,
   Text,
-  Html,
-  PivotControls,
-  TransformControls,
   OrbitControls,
-  SoftShadows
 } from '@react-three/drei'
 import { Perf } from 'r3f-perf'
-import * as THREE from 'three'
+import { useControls } from "leva"
 
 export default function Experience() {
 
@@ -22,7 +17,13 @@ export default function Experience() {
   const sphereRef = useRef()
   const groupRef = useRef()
 
-  useHelper(directionalLightRef, THREE.DirectionalLightHelper, 1)
+  const { color, opacity, blur } = useControls('contact shadows', {
+    color: '#1d8f75',
+    opacity: { value: 0.4, min: 0, max: 1 },
+    blur: { value: 2.8, min: 0, max: 10 }
+  })
+
+  // useHelper(directionalLightRef, THREE.DirectionalLightHelper, 1)
 
   useFrame((state, delta) => {
 
@@ -38,7 +39,16 @@ export default function Experience() {
   return (
     <>
       {/*<BakeShadows />*/}
-      <SoftShadows size={ 25 } samples={ 10 } focus={ 0 } />
+      {/*<SoftShadows size={ 25 } samples={ 10 } focus={ 0 } />*/}
+      <ContactShadows
+        position={ [0, -0.99, 0] }
+        scale={ 10 }
+        resolution={ 512 }
+        far={ 5 }
+        color={ color }
+        opacity={ opacity }
+        blur={ blur }
+      />
       <color args={ ['ivory'] } attach="background" />
       <Perf position="top-left" />
       <OrbitControls makeDefault />
@@ -57,18 +67,18 @@ export default function Experience() {
       />
       <ambientLight intensity={ 1.5 } />
       <group ref={ groupRef }>
-        <PivotControls
+        {/*<PivotControls
           anchor={ [0, 0, 0] }
           depthTest={ false }
           lineWidth={ 4 }
           axisColors={ ['#9381ff', '#ff4d6d', '#7ae582'] }
           scale={ 100 }
           fixed={ true }
-        >
+        >*/}
           <mesh castShadow ref={ sphereRef } position-x={ -2 }>
             <sphereGeometry />
             <meshStandardMaterial color="orange" />
-            <Html
+            {/*<Html
               position={ [1.5, 1, 0] }
               wrapperClass="label"
               center
@@ -76,14 +86,14 @@ export default function Experience() {
               occlude={ [ sphereRef, cubeRef ] }
             >
               Sergio Correia
-            </Html>
+            </Html>*/}
           </mesh>
-        </PivotControls>
+        {/*</PivotControls>*/}
         <mesh castShadow ref={ cubeRef } rotation-y={ Math.PI * .25 } position-x={2} scale={1.5}>
           <boxGeometry scale={ 1.5 } />
           <meshStandardMaterial color="mediumpurple" />
         </mesh>
-        <TransformControls object={ cubeRef } mode="translate" />
+        {/*<TransformControls object={ cubeRef } mode="translate" />*/}
       </group>
       <mesh receiveShadow position-y={ -1 } rotation-x={ -Math.PI * .5 } scale={ 10 }>
         <planeGeometry />

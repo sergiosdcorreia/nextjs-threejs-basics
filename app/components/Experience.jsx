@@ -1,7 +1,6 @@
 import { useFrame } from "@react-three/fiber"
 import { useRef } from "react"
-import { Text, Html, PivotControls, TransformControls, OrbitControls  } from '@react-three/drei'
-import { MeshNormalMaterial } from "three"
+import { MeshReflectorMaterial, Float, Text, Html, PivotControls, TransformControls, OrbitControls  } from '@react-three/drei'
 
 export default function Experience() {
 
@@ -56,12 +55,23 @@ export default function Experience() {
       </group>
       <mesh position-y={ -1 } rotation-x={ -Math.PI * .5 } scale={ 10 }>
         <planeGeometry />
-        <meshStandardMaterial color="greenyellow" />
+        <MeshReflectorMaterial 
+          resolution={ 512 }
+          blur={ [1000, 1000] }
+          mixBlur={ 1 }
+          mirror={ .75 }
+          color={'greenyellow'}
+        />
       </mesh>
-      <Text position={ [0, 2, -3] }>
-        SERGIO CORREIA
-        <meshNormalMaterial />
-      </Text>
+      <Float
+        speed={ 2 }
+        floatIntensity={ 3 }
+      >
+        <Text position={ [0, 2, -3] }>
+          SERGIO CORREIA
+          <meshNormalMaterial />
+        </Text>
+      </Float>
     </>
   );
 }

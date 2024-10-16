@@ -1,6 +1,17 @@
 import { useFrame } from "@react-three/fiber"
 import { useRef } from "react"
-import { useHelper, MeshReflectorMaterial, Float, Text, Html, PivotControls, TransformControls, OrbitControls  } from '@react-three/drei'
+import {
+  BakeShadows,
+  useHelper,
+  MeshReflectorMaterial,
+  Float,
+  Text,
+  Html,
+  PivotControls,
+  TransformControls,
+  OrbitControls,
+  SoftShadows
+} from '@react-three/drei'
 import { Perf } from 'r3f-perf'
 import * as THREE from 'three'
 
@@ -26,10 +37,24 @@ export default function Experience() {
 
   return (
     <>
+      {/*<BakeShadows />*/}
+      <SoftShadows size={ 25 } samples={ 10 } focus={ 0 } />
       <color args={ ['ivory'] } attach="background" />
       <Perf position="top-left" />
       <OrbitControls makeDefault />
-      <directionalLight ref={ directionalLightRef } castShadow position={ [ 1, 2, 3 ] } intensity={ 4.5 } />
+      <directionalLight
+        ref={ directionalLightRef }
+        position={ [ 1, 2, 3 ] }
+        intensity={ 4.5 }
+        castShadow
+        shadow-mapSize={ [1024, 1024] }
+        shadow-camera-near={ 1 }
+        shadow-camera-far={ 10 }
+        shadow-camera-top={ 3 }
+        shadow-camera-right={ 3 }
+        shadow-camera-bottom={ -3 }
+        shadow-camera-left={ -3 }
+      />
       <ambientLight intensity={ 1.5 } />
       <group ref={ groupRef }>
         <PivotControls
@@ -62,7 +87,7 @@ export default function Experience() {
       </group>
       <mesh receiveShadow position-y={ -1 } rotation-x={ -Math.PI * .5 } scale={ 10 }>
         <planeGeometry />
-        <MeshReflectorMaterial 
+        <MeshReflectorMaterial
           resolution={ 512 }
           blur={ [1000, 1000] }
           mixBlur={ 1 }

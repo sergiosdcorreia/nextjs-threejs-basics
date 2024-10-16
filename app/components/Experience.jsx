@@ -1,13 +1,17 @@
 import { useFrame } from "@react-three/fiber"
 import { useRef } from "react"
-import { MeshReflectorMaterial, Float, Text, Html, PivotControls, TransformControls, OrbitControls  } from '@react-three/drei'
+import { useHelper, MeshReflectorMaterial, Float, Text, Html, PivotControls, TransformControls, OrbitControls  } from '@react-three/drei'
 import { Perf } from 'r3f-perf'
+import * as THREE from 'three'
 
 export default function Experience() {
 
+  const directionalLightRef = useRef()
   const cubeRef = useRef()
   const sphereRef = useRef()
   const groupRef = useRef()
+
+  useHelper(directionalLightRef, THREE.DirectionalLightHelper, 1)
 
   useFrame((state, delta) => {
 
@@ -25,7 +29,7 @@ export default function Experience() {
       <color args={ ['ivory'] } attach="background" />
       <Perf position="top-left" />
       <OrbitControls makeDefault />
-      <directionalLight position={ [ 1, 2, 3 ] } intensity={ 4.5 } />
+      <directionalLight ref={ directionalLightRef } castShadow position={ [ 1, 2, 3 ] } intensity={ 4.5 } />
       <ambientLight intensity={ 1.5 } />
       <group ref={ groupRef }>
         <PivotControls
@@ -36,7 +40,7 @@ export default function Experience() {
           scale={ 100 }
           fixed={ true }
         >
-          <mesh ref={ sphereRef } position-x={ -2 }>
+          <mesh castShadow ref={ sphereRef } position-x={ -2 }>
             <sphereGeometry />
             <meshStandardMaterial color="orange" />
             <Html
@@ -50,13 +54,13 @@ export default function Experience() {
             </Html>
           </mesh>
         </PivotControls>
-        <mesh ref={ cubeRef } rotation-y={ Math.PI * .25 } position-x={2} scale={1.5}>
+        <mesh castShadow ref={ cubeRef } rotation-y={ Math.PI * .25 } position-x={2} scale={1.5}>
           <boxGeometry scale={ 1.5 } />
           <meshStandardMaterial color="mediumpurple" />
         </mesh>
         <TransformControls object={ cubeRef } mode="translate" />
       </group>
-      <mesh position-y={ -1 } rotation-x={ -Math.PI * .5 } scale={ 10 }>
+      <mesh receiveShadow position-y={ -1 } rotation-x={ -Math.PI * .5 } scale={ 10 }>
         <planeGeometry />
         <MeshReflectorMaterial 
           resolution={ 512 }

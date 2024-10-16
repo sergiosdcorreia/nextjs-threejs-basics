@@ -14,6 +14,7 @@ export default function Home() {
 
   return (
     <Canvas
+      shadows
       camera={ cameraSettings }
     >
       <Experience />

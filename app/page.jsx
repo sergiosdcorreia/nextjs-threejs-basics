@@ -14,7 +14,8 @@ export default function Home() {
 
   return (
     <Canvas
-      camera={ cameraSettings }>
+      camera={ cameraSettings }
+    >
       <Experience />
     </Canvas>
   );

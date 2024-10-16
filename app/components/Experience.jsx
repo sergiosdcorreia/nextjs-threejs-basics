@@ -1,6 +1,7 @@
 import { useFrame } from "@react-three/fiber"
 import { useRef } from "react"
 import { MeshReflectorMaterial, Float, Text, Html, PivotControls, TransformControls, OrbitControls  } from '@react-three/drei'
+import { Perf } from 'r3f-perf'
 
 export default function Experience() {
 
@@ -8,19 +9,21 @@ export default function Experience() {
   const sphereRef = useRef()
   const groupRef = useRef()
 
-  useFrame(() => {
+  useFrame((state, delta) => {
 
     // const angle = state.clock.elapsedTime * .5
     // state.camera.position.x = Math.sin(angle) *3
     // state.camera.position.z = Math.cos(angle) *3
     // state.camera.lookAt(0, 0, 0)
 
-    // cubeRef.current.rotation.y += delta
+    cubeRef.current.rotation.y += delta * .2
     // groupRef.current.rotation.y += delta
   })
 
   return (
     <>
+      <color args={ ['ivory'] } attach="background" />
+      <Perf position="top-left" />
       <OrbitControls makeDefault />
       <directionalLight position={ [ 1, 2, 3 ] } intensity={ 4.5 } />
       <ambientLight intensity={ 1.5 } />

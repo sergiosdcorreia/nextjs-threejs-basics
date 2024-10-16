@@ -1,6 +1,7 @@
 import { useFrame } from "@react-three/fiber"
 import { useRef } from "react"
-import { Html, PivotControls, TransformControls, OrbitControls  } from '@react-three/drei'
+import { Text, Html, PivotControls, TransformControls, OrbitControls  } from '@react-three/drei'
+import { MeshNormalMaterial } from "three"
 
 export default function Experience() {
 
@@ -57,6 +58,10 @@ export default function Experience() {
         <planeGeometry />
         <meshStandardMaterial color="greenyellow" />
       </mesh>
+      <Text position={ [0, 2, -3] }>
+        SERGIO CORREIA
+        <meshNormalMaterial />
+      </Text>
     </>
   );
 }

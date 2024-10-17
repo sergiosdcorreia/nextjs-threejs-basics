@@ -1,28 +1,32 @@
-import { useFrame } from "@react-three/fiber"
+import { useFrame, useLoader } from "@react-three/fiber"
 import { useRef } from "react"
 import {
   Environment,
-  ContactShadows,
+  // ContactShadows,
   // MeshReflectorMaterial,
-  Float,
-  Text,
+  // Float,
+  // Text,
   OrbitControls,
+  useHelper,
 } from '@react-three/drei'
 import { Perf } from 'r3f-perf'
 import { useControls } from "leva"
+import { GLTFLoader } from "three/examples/jsm/Addons.js"
 
 export default function Experience() {
 
   const directionalLightRef = useRef()
-  const cubeRef = useRef()
-  const sphereRef = useRef()
-  const groupRef = useRef()
+  // const cubeRef = useRef()
+  // const sphereRef = useRef()
+  // const groupRef = useRef()
 
+  /*
   const { color, opacity, blur } = useControls('contact shadows', {
     color: '#4b2709',
     opacity: { value: 0.4, min: 0, max: 1 },
     blur: { value: 2.8, min: 0, max: 10 }
   })
+  */
 
   const { sunPosition } = useControls('sky', {
     sunPosition: { value: [ 1, 2, 3 ] }
@@ -35,16 +39,18 @@ export default function Experience() {
     envMapScale: { value: 160, min: 10, max: 1000 }
   })
 
+  const model = useLoader(GLTFLoader, '/hamburger.glb')
+
   // useHelper(directionalLightRef, THREE.DirectionalLightHelper, 1)
 
-  useFrame((state, delta) => {
+  useFrame(() => {
 
     // const angle = state.clock.elapsedTime * .5
     // state.camera.position.x = Math.sin(angle) *3
     // state.camera.position.z = Math.cos(angle) *3
     // state.camera.lookAt(0, 0, 0)
 
-    cubeRef.current.rotation.y += delta * .2
+    // cubeRef.current.rotation.y += delta * .2
     // groupRef.current.rotation.y += delta
   })
 
@@ -52,7 +58,7 @@ export default function Experience() {
     <>
       {/*<BakeShadows />*/}
       {/*<SoftShadows size={ 25 } samples={ 10 } focus={ 0 } />*/}
-      <ContactShadows
+      {/*<ContactShadows
         position={ [0, 0, 0] }
         scale={ 10 }
         resolution={ 512 }
@@ -60,7 +66,7 @@ export default function Experience() {
         color={ color }
         opacity={ opacity }
         blur={ blur }
-      />
+      />*/}
       <Environment
         preset="sunset"
         ground={{
@@ -89,19 +95,19 @@ export default function Experience() {
       />
       <ambientLight intensity={ 1.5 } />
       {/*<Sky sunPosition= { sunPosition } />*/}
-      <group ref={ groupRef }>
-        {/*<PivotControls
+      {/*<group ref={ groupRef }>
+        <PivotControls
           anchor={ [0, 0, 0] }
           depthTest={ false }
           lineWidth={ 4 }
           axisColors={ ['#9381ff', '#ff4d6d', '#7ae582'] }
           scale={ 100 }
           fixed={ true }
-        >*/}
+        >
           <mesh castShadow ref={ sphereRef } position-y={ 1 } position-x={ -2 }>
             <sphereGeometry />
             <meshStandardMaterial color="orange" />
-            {/*<Html
+            <Html
               position={ [1.5, 1, 0] }
               wrapperClass="label"
               center
@@ -109,15 +115,16 @@ export default function Experience() {
               occlude={ [ sphereRef, cubeRef ] }
             >
               Sergio Correia
-            </Html>*/}
+            </Html>
           </mesh>
-        {/*</PivotControls>*/}
+        </PivotControls>
         <mesh castShadow ref={ cubeRef } position-y={ 1 } rotation-y={ Math.PI * .25 } position-x={2} scale={1.5}>
           <boxGeometry scale={ 1.5 } />
           <meshStandardMaterial color="mediumpurple" />
         </mesh>
-        {/*<TransformControls object={ cubeRef } mode="translate" />*/}
+        <TransformControls object={ cubeRef } mode="translate" />
       </group>
+      */}
       {/*
       <mesh receiveShadow position-y={ 0 } rotation-x={ -Math.PI * .5 } scale={ 10 }>
         <planeGeometry />
@@ -129,7 +136,6 @@ export default function Experience() {
           color={'greenyellow'}
         />
       </mesh>
-      */}
       <Float
         speed={ 2 }
         floatIntensity={ 3 }
@@ -139,6 +145,8 @@ export default function Experience() {
           <meshNormalMaterial />
         </Text>
       </Float>
+      */}
+      <primitive object={ model.scene } scale={ .35 } />
     </>
   );
 }

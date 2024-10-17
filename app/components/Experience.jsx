@@ -7,7 +7,6 @@ import {
   // Float,
   // Text,
   OrbitControls,
-  useHelper,
 } from '@react-three/drei'
 import { Perf } from 'r3f-perf'
 import { useControls } from "leva"

@@ -3,7 +3,7 @@ import { useRef } from "react"
 import {
   Environment,
   ContactShadows,
-  MeshReflectorMaterial,
+  // MeshReflectorMaterial,
   Float,
   Text,
   OrbitControls,
@@ -19,13 +19,20 @@ export default function Experience() {
   const groupRef = useRef()
 
   const { color, opacity, blur } = useControls('contact shadows', {
-    color: '#1d8f75',
+    color: '#4b2709',
     opacity: { value: 0.4, min: 0, max: 1 },
     blur: { value: 2.8, min: 0, max: 10 }
   })
 
   const { sunPosition } = useControls('sky', {
     sunPosition: { value: [ 1, 2, 3 ] }
+  })
+
+  const { envMapHeight, envMapRadius, envMapScale } = useControls('environment map', {
+    envMapIntensity: { value: 3.5, min: 0, max: 12 },
+    envMapHeight: { value: 5, min: 0, max: 100 },
+    envMapRadius: { value: 30, min: 10, max: 1000 },
+    envMapScale: { value: 160, min: 10, max: 1000 }
   })
 
   // useHelper(directionalLightRef, THREE.DirectionalLightHelper, 1)
@@ -46,7 +53,7 @@ export default function Experience() {
       {/*<BakeShadows />*/}
       {/*<SoftShadows size={ 25 } samples={ 10 } focus={ 0 } />*/}
       <ContactShadows
-        position={ [0, -0.99, 0] }
+        position={ [0, 0, 0] }
         scale={ 10 }
         resolution={ 512 }
         far={ 5 }
@@ -55,8 +62,14 @@ export default function Experience() {
         blur={ blur }
       />
       <Environment
-        background
-        files={ '/images/victoria_sunset_1k.hdr' }
+        preset="sunset"
+        ground={{
+          height: envMapHeight,
+          radius: envMapRadius,
+          scale: envMapScale
+        }}
+
+        // files={ '/images/victoria_sunset_1k.hdr' }
       />
       <color args={ ['ivory'] } attach="background" />
       <Perf position="top-left" />
@@ -85,7 +98,7 @@ export default function Experience() {
           scale={ 100 }
           fixed={ true }
         >*/}
-          <mesh castShadow ref={ sphereRef } position-x={ -2 }>
+          <mesh castShadow ref={ sphereRef } position-y={ 1 } position-x={ -2 }>
             <sphereGeometry />
             <meshStandardMaterial color="orange" />
             {/*<Html
@@ -99,13 +112,14 @@ export default function Experience() {
             </Html>*/}
           </mesh>
         {/*</PivotControls>*/}
-        <mesh castShadow ref={ cubeRef } rotation-y={ Math.PI * .25 } position-x={2} scale={1.5}>
+        <mesh castShadow ref={ cubeRef } position-y={ 1 } rotation-y={ Math.PI * .25 } position-x={2} scale={1.5}>
           <boxGeometry scale={ 1.5 } />
           <meshStandardMaterial color="mediumpurple" />
         </mesh>
         {/*<TransformControls object={ cubeRef } mode="translate" />*/}
       </group>
-      <mesh receiveShadow position-y={ -1 } rotation-x={ -Math.PI * .5 } scale={ 10 }>
+      {/*
+      <mesh receiveShadow position-y={ 0 } rotation-x={ -Math.PI * .5 } scale={ 10 }>
         <planeGeometry />
         <MeshReflectorMaterial
           resolution={ 512 }
@@ -115,6 +129,7 @@ export default function Experience() {
           color={'greenyellow'}
         />
       </mesh>
+      */}
       <Float
         speed={ 2 }
         floatIntensity={ 3 }
